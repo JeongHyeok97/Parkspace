@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Parkspace</string>
+    <string name="app_name">ParkSpace</string>
+    <string name="input_your_arrival">목적지, 주소 검색</string>
 </resources>
