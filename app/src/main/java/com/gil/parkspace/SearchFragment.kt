@@ -27,15 +27,15 @@ class SearchFragment : Fragment(){
     private val mBackgroundScope = CoroutineScope(Dispatchers.IO + mJob)
     private lateinit var mBinding: FragmentSearchBinding
     private val mSearchAdapter = SearchAdapter(mutableListOf())
-    private lateinit var mCurrentPosition: LatLng
+    private lateinit var mCameraPosition: LatLng
     companion object{
         const val TAG = "Search"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val rootActivity = activity as MainActivity
-        mCurrentPosition = rootActivity.getCurrentLocation()
-        mSearchAdapter.setCurrentLocation(mCurrentPosition)
+        mCameraPosition = rootActivity.getCameraLocation()
+        mSearchAdapter.setCurrentLocation(mCameraPosition)
         mSearchAdapter.setOnClickListener(object : OnItemClickListener {
             override fun onClickItem(item: Any) {
                 if (item is ParkingLot){
