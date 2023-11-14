@@ -43,19 +43,6 @@ class InfoFragment(private val parkingLot: ParkingLot) : Fragment(){
     }
 
     fun startMap(parkingLot: ParkingLot){
-        val title = parkingLot.parkingName
-        val latitude = parkingLot.latitude
-        val longitude = parkingLot.longitude
-
-
-       /* val d = "nmap://route/car?" +
-                "slat=${mRootActivity.getCurrentLocation().second.latitude}&" +
-                "slng=${mRootActivity.getCurrentLocation().second.longitude}&" +
-                "sname=${mRootActivity.getCurrentLocation().first}&" +
-                "dlat=$latitude&" +
-                "dlng=$longitude&" +
-                "dname=$title&" +
-                "appname=com.gil.parkspace"*/
         val uriString = MapApplicationUtils.getNaverScheme(
             mRootActivity.getCurrentLocation().first,
             mRootActivity.getCurrentLocation().second,
