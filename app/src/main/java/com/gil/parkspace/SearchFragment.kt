@@ -76,7 +76,6 @@ class SearchFragment : Fragment(){
             override fun onQueryTextChange(newText: String?): Boolean {
                 handler.removeCallbacksAndMessages(null)
                 mBinding.searchItemListview.visibility = INVISIBLE
-                // 일정 딜레이 후에 데이터 요청
                 handler.postDelayed({
                     mBackgroundScope.launch {
                         var inputText = newText
@@ -92,7 +91,7 @@ class SearchFragment : Fragment(){
                         }
 
                     }
-                }, 800) // 800 milliseconds 딜레이 (원하는 시간으로 조절)
+                }, 800)
 
                 return false
             }

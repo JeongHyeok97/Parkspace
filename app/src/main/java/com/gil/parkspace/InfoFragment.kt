@@ -1,10 +1,6 @@
 package com.gil.parkspace
 
-import android.R.attr
-import android.R.attr.path
-import android.R.attr.scheme
 import android.content.Intent
-import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -13,11 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.gil.parkspace.api.MapApplicationUtils
 import com.gil.parkspace.databinding.FragmentInfoBinding
-import java.util.*
 
 
 class InfoFragment(private val parkingLot: ParkingLot) : Fragment(){
+    companion object{
+        private const val TAG = "InfoFragment"
+    }
 
     private lateinit var infoBinding: FragmentInfoBinding
     private lateinit var mRootActivity: MainActivity
@@ -48,15 +47,31 @@ class InfoFragment(private val parkingLot: ParkingLot) : Fragment(){
         val latitude = parkingLot.latitude
         val longitude = parkingLot.longitude
 
-        val uri = Uri.parse("geo:$latitude" +
-                ",$longitude?q=$title")
+
+       /* val d = "nmap://route/car?" +
+                "slat=${mRootActivity.getCurrentLocation().second.latitude}&" +
+                "slng=${mRootActivity.getCurrentLocation().second.longitude}&" +
+                "sname=${mRootActivity.getCurrentLocation().first}&" +
+                "dlat=$latitude&" +
+                "dlng=$longitude&" +
+                "dname=$title&" +
+                "appname=com.gil.parkspace"*/
+        val uriString = MapApplicationUtils.getNaverScheme(
+            mRootActivity.getCurrentLocation().first,
+            mRootActivity.getCurrentLocation().second,
+            parkingLot)
+        val uri = Uri.parse(uriString)
         val intent = Intent(Intent.ACTION_VIEW, uri)
         val pm = requireContext().packageManager
-        val activities: List<ResolveInfo> = pm.queryIntentActivities(intent, 0)
-        val isIntentSafe = activities.isNotEmpty()
-
-        if (isIntentSafe){
+        if (pm.resolveActivity(intent, 0) != null){
             startActivity(intent)
         }
+        else{
+            val kakaoUri = MapApplicationUtils.getKakaoScheme(mRootActivity.getCurrentLocation().first,
+                mRootActivity.getCurrentLocation().second,
+                parkingLot)
+            intent.data= Uri.parse(kakaoUri)
+        }
+
     }
 }

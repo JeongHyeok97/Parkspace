@@ -40,7 +40,13 @@ class SearchAdapter(
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         val item = itemList[position]
         val parkingSpaces = item.capacity - item.currentParking
-        val string = "잔여 : ${parkingSpaces.toInt()} 대"
+        val space = if (parkingSpaces.toInt()>0){
+            parkingSpaces.toInt()
+        }
+        else{
+            0
+        }
+        val string = "잔여 : $space 대"
         val distance = currentLatLng?.distanceTo(LatLng(item.latitude, item.longitude))!!
         holder.bindItem(item, string, String.format("%.1f",distance/1000) + "km")
     }

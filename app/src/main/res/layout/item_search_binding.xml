@@ -88,6 +88,7 @@
                 android:layout_width = "64dp"
                 android:layout_height = "match_parent"
                 app:layout_constraintEnd_toEndOf="parent"
+
                 android:gravity = "center"
                 tools:text = "32.2km"
                 android:text="@{distance != null? distance : ' '}"

@@ -138,7 +138,16 @@ data class ParkingLot(
     val shEtc: String
 ){
 
+    val supportMonthly:String = if (fullTimeMonthly == "0" || fullTimeMonthly == ""){
+        "-"
+    }
+    else{
+        fullTimeMonthly.toInt().toString()
+    }
     val payment = "평일: $payName / 토요일: $saturdayPayName / 주말&공휴일: $holidayPayName"
+    val pay = "기본 주차 요금 : ${timeRate.toInt()}분당 ${rates.toInt()} 원\n" +
+            "추가 요금 : ${addTimeRate.toInt()}분당 ${addRates.toInt()} 원\n" +
+            "월 정기권 : ${supportMonthly}원"
     val businessHours =
         "운영시간\n평일 : ${
         weekdayBeginTime.substring(
