@@ -59,6 +59,5 @@ class InfoFragment(private val parkingLot: ParkingLot) : Fragment(){
                 parkingLot)
             intent.data= Uri.parse(kakaoUri)
         }
-
     }
 }
